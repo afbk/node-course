@@ -9,11 +9,10 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
 
   db.collection('Users').find({
-      name: 'Preben'
+      //name: 'Preben'
     })
     .toArray()
     .then((result) => {
-      console.log('Users')
       console.log(JSON.stringify(result, undefined, 2))
     }, (err) => {
       if (err) {

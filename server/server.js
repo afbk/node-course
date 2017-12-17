@@ -5,13 +5,27 @@ mongoose.connect('mongodb://localhost:27017/TodoApp')
 
 let Todo = mongoose.model('Todo', {
   text: {
-    type: String
+    type: String,
+    required: true,
+    minlength: 1,
+    trim: true
   },
   completed: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   completedAt: {
-    type: Number
+    type: Number,
+    default: null
+  }
+})
+
+let User = mongoose.model('User', {
+  email: {
+    type: String,
+    required: true,
+    minlength: 1,
+    trim: true
   }
 })
 
@@ -21,9 +35,12 @@ let newTodo = new Todo({
   completedAt: 20171217
 })
 
-newTodo.save()
-  .then((result) => {
-    console.log('Saved todo.', result)
-  }, (error) => {
-    console.log('Unable to save todo.', error)
-  })
+let newUser = new User({
+  email: 'anderskraneled@gmail.com'
+})
+
+newUser.save().then((result) => {
+  console.log('Success', result)
+}, (error) => {
+  console.log('Error', error)
+})

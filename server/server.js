@@ -29,23 +29,6 @@ app.listen(process.env.PORT, () => {
   console.log('Listening on port ' + process.env.PORT)
 })
 
-
-
-
-/*
-let newTodo = new Todo({
-  text: 'cook dinner',
-  completed: true,
-  completedAt: 20171217
-})
-
-let newUser = new User({
-  email: 'anderskraneled@gmail.com'
-})
-
-newUser.save().then((result) => {
-  console.log('Success', result)
-}, (error) => {
-  console.log('Error', error)
-})
-*/
+module.exports = {
+  app
+}

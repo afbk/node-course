@@ -1,34 +1,38 @@
-let mongoose = require('mongoose')
+let { mongoose } = require('./db/mongoose')
+let { Todo } = require('./models/todo')
+let { User } = require('./models/user')
 
-mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost:27017/TodoApp')
+let express = require('express')
+let bodyParser = require('body-parser')
 
-let Todo = mongoose.model('Todo', {
-  text: {
-    type: String,
-    required: true,
-    minlength: 1,
-    trim: true
-  },
-  completed: {
-    type: Boolean,
-    default: false
-  },
-  completedAt: {
-    type: Number,
-    default: null
-  }
+let app = express()
+
+app.use(bodyParser.json())
+
+app.post('/todos', (req, res) => {
+  console.log(req.body)
+  let todo = new Todo({
+    text: req.body.text
+  })
+  todo.save().then((result) => {
+    res.send(result)
+  }, (error) => {
+    res.status(400).send(error)
+  })
 })
 
-let User = mongoose.model('User', {
-  email: {
-    type: String,
-    required: true,
-    minlength: 1,
-    trim: true
-  }
+app.get('/todos', (req, res) => {
+
 })
 
+app.listen(process.env.PORT, () => {
+  console.log('Listening on port ' + process.env.PORT)
+})
+
+
+
+
+/*
 let newTodo = new Todo({
   text: 'cook dinner',
   completed: true,
@@ -44,3 +48,4 @@ newUser.save().then((result) => {
 }, (error) => {
   console.log('Error', error)
 })
+*/
